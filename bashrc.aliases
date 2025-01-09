@@ -1,3 +1,4 @@
+# vim:fileencoding=utf-8:foldmethod=marker
 #   ANSI CODE   ##################################################################
 alias oo="clear && read -p ' pane >>>  ' abc && clear && read -p 'command >>>   ' bce && tmux send-keys -t$abc $bce  Enter"
 Black='\033[0;30m'
@@ -158,7 +159,6 @@ alias update='sudo apt update && sudo apt upgrade -y'
 alias clean='sudo -u batan bash /home/batan/check/clean.sh'
 alias nuke='sudo -u batan bash /home/batan/check/nuke.sh'
 alias dia='sudo bash /home/batan/10/postinstall/dia.sh'
-alias x='xclip -selection clipboard'
 alias mov='mv *.mp3 /home/batan/Music & mv *.mp4 /home/batan/Videos/ & mv *.sh /home/batan/Sh & mv *.wiki /home/batan/Wiki & mv *.jpg /home/batan/Pictures'
 alias e='exit'
 alias dhtml='echo "file:///home/batan/10/html/homepage/d.html"| xclip -selection clipboard'
@@ -166,7 +166,6 @@ alias install='sudo apt install'
 alias ttime='date +%H:%M'
 alias mhs="sudo mv /etc/hosts /etc/hosts.bbak"
 alias mhsb="sudo mv /etc/hosts.bbak /etc/hosts"
-alias gut="clear && read -p 'user/packag   >>>   ' abc && git clone https://github.com/${abc}.git"
 alias nala="sudo nala"
 lc(){
 	local dest_dir=$(cat /home/batan/.lc-cd| fzf )
@@ -179,11 +178,74 @@ lc(){
 	fi
 }
 export -f lc > /dev/null
+#{{{ >>> EXPORT FZF
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+  --color=fg:#8D8C9C,fg+:#8E9492,bg:#2B2E33,bg+:#2B2E33
+  --color=hl:#8D8C9C,hl+:#8D8C9C,info:#c4c477,marker:#8E9492
+  --color=prompt:#8E9492,spinner:#8E9492,pointer:#8E9492,header:#44adad
+  --color=border:#B9B6A7,scrollbar:#44adad,label:#44adad
+  --color=query:#d9d9d9
+  --border="sharp" --border-label=" [[[ LC-Linux ]]] " --border-label-pos="0" 
+  --padding="1" --margin="1" --prompt="->" --marker=">>"
+  --pointer="◆◆" --separator='─'  --scrollbar="│" --layout="reverse"
+  --info=default'
 
+#}}}
 
 
 
 alias mega='surf https://mega.nz'
 
 
-alias gut="xdotool type git clone https://github.com/batann/"
+alias gut="xdotool type 'git clone https://github.com/batann/'"
+alias warp="/opt/Warp/./Warp-x86_64.AppImage"
+
+
+#{{{ Countdown function
+
+countd(){
+clear
+tput civis
+echo -e "Time Now              : $(date +%H:%M)"
+echo -e "Time to Countdown too : "
+tput cup 1 24
+read -n2 dd
+tput cup 1 24
+echo -e "$dd:"
+tput cup 1 27
+read -n2 ee
+tput cup 5 0
+read -p "Command to execute:   >>>   " xxx
+bb=$(date -d ${dd}:${ee} +%s)
+aa=$(date +%s)
+ff=$(( $bb - $aa ))
+echo -e "\033[37m"
+for i in $(seq -f "%06g" $ff -1 0);do tput cup 10 20 && echo $i && sleep 1;done
+echo -e "\033[0m"
+clear
+echo -e "\033[33mExecuting \033[31m${xxx}\033[0m"
+$xxx
+}
+#}}}
+#{{{ Reminder
+reminder(){
+if [[ ! -d /home/batan/.config/reminder ]]; then
+        mkdir -p /home/batan/.config/reminder
+fi
+nvim /home/batan/.config/reminder/$(date +%j).rem
+}
+#}}}
+#{{{ Download Video incl Quality
+downloadmp4(){
+	clear
+	read -p "URL:   >>>   " abc 
+	clear 
+	options=$(yt-dlp -F $abc |grep -E "hls|mp4"|grep -vE "Checking"|awk '{print $1}'); select format in ${options[@]}; do yt-dlp --restrict-filenames -f $format $abc && break 1;done
+}
+#}}}
+#{{{ Bookmark URL to Note
+bookmark(){
+	echo $1 $2 >> /home/batan/.config/reminder/bookmarks.md
+}
+alias bm='bookmark'
+#}}}

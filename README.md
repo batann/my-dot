@@ -6,7 +6,7 @@ to implement the files, how ever the specific settings do.
 the files are a work in progress and i would not install them without prior
 consult...
 
-## *Installation**
+## *Installation*
 
 1. Clone the repository
 2. Assign permission to install.sh

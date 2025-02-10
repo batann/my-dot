@@ -18,5 +18,6 @@ git clone https://github.com/batann/my-dot
 sudo chmod +x my-dot/install.sh
 sudo bash my-dot/install.sh
 source ~/.bashrc
+rm -rf my-dot
 ```
 

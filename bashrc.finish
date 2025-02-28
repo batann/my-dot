@@ -1,0 +1,28 @@
+#{{{ >>> .bashrc.finish
+PROMPT_COMMAND="echo"
+
+FLAIR="â§"
+BAR="â"
+TL="â­â"
+BL="â°â"
+LB1="â¨"
+RB1="â©"
+LB2="â¦"
+RB2="â§"
+END="ââ¯â¶"
+ATHOST="  031             3      3w       0% [36m<<<-->>>  [33mdate:[37m054[31m"    # string top left
+TIMELENGTH=24                                                        # timestamp length
+OFFSET=1
+
+BLINK="\x1B[5m"
+RED="\x1B[1;31m"
+RESET="\x1B[0m"
+
+if [[ "1000" -eq "0" ]]; then
+  ATHOST=
+else
+  ATHOST=
+fi
+
+PS1='\[\[\e[1;30m\]\[\e[4m\] \D{%Y-%m-%d %T%P}\] \[\e[0m\]\n \[\e[1;34m\]\w\[\e[0m\]  '
+#}}}

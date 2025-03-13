@@ -1,0 +1,10 @@
+(search like variable) (fzf like)
+captcher keysequence for navigation, while a-z keys narrow down options to letters Entered
+
+to achieve that the main while loop would have to captcher each key-stroke and in case of a letter it would have to be captchured in a variable that the options are being filtered through
+additional thoughts:"Variable $Example holds the key (eg. e ) options including letter e could be filtered with grep, where by an additional value is determind by the position of the key within the option, closer to the beginig the higher the value eg
+option1="xexxxxx"
+option2="xxxxxe"
+
+option1
+
